@@ -145,12 +145,36 @@ window.onload = function () {
   if (tg) {
     const user = tg.initDataUnsafe?.user;
     if (user) {
-      nameInput.value = user.username || "";
-      nameInput.readOnly = true;
+      const userData = {
+        id: user.id,
+        username: user.username || "User" + user.id,
+        photo_url: user.photo_url || defaultAvatar,
+        scoreing: 0,
+        numberOfLives: 0,
+      };
 
-      if (user.photo_url) {
-        avatarImg.src = user.photo_url;
-      }
+      localStorage.setObj(user.id, userData);
+
+      nameInput.value = userData.username;
+      nameInput.readOnly = true;
+      avatarImg.src = userData.photo_url;
+
+      const cloudDB = firebase.firestore();
+      cloudDB
+        .collection("Database")
+        .doc(user.id.toString())
+        .set({
+          Username: userData.username,
+          PhotoURL: userData.photo_url,
+          Score: 0,
+          Level: 1,
+          Lives: 0,
+          Stars: 0,
+          Growth: 0,
+          LastUpdated: firebase.firestore.FieldValue.serverTimestamp(),
+        })
+        .then(() => console.log("Initial user data saved"))
+        .catch((err) => console.error("Error saving initial data:", err));
     }
   } else {
     avatarImg.src = defaultAvatar;

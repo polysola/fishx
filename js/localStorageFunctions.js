@@ -9,22 +9,23 @@ Storage.prototype.getObj = function (key) {
 const saveGameDataToFirebase = (userData, gameData) => {
   const cloudDB = firebase.firestore();
   const isTelegramWebApp = window.Telegram && window.Telegram.WebApp;
-  const userID = isTelegramWebApp ? tg.initDataUnsafe.user.id : userData;
+  const user = isTelegramWebApp ? tg.initDataUnsafe?.user : null;
 
-  cloudDB
-    .collection("Database")
-    .doc(userID.toString())
-    .set({
-      Score: gameData.scoreing,
-      Level: level,
-      Lives: lives,
-      Stars: seaStarNum,
-      Growth: ((score - (level - 1) * 30) / 30) * 100,
-      LastUpdated: firebase.firestore.FieldValue.serverTimestamp(),
-      Username: isTelegramWebApp ? tg.initDataUnsafe.user.username : userData,
-    })
-    .then(() => console.log("Game data saved for", userID))
-    .catch((err) => console.error("Error saving data:", err));
+  if (user) {
+    cloudDB
+      .collection("Database")
+      .doc(user.id.toString())
+      .update({
+        Score: gameData.scoreing,
+        Level: level,
+        Lives: lives,
+        Stars: seaStarNum,
+        Growth: ((score - (level - 1) * 30) / 30) * 100,
+        LastUpdated: firebase.firestore.FieldValue.serverTimestamp(),
+      })
+      .then(() => console.log("Game data updated for", user.username))
+      .catch((err) => console.error("Error updating data:", err));
+  }
 };
 
 let updateLocalStorage = function () {
