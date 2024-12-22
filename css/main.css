@@ -1,0 +1,355 @@
+button {
+  opacity: 0.6;
+  transition: 0.5s;
+  cursor: pointer;
+}
+button:hover {
+  opacity: 1;
+}
+
+#load {
+  position: fixed;
+  top: 0;
+  /* background: url("../Div/Welcome/bg.PNG") fixed no-repeat ;
+    background-size: cover ; */
+  background: #333;
+  color: #fff;
+  z-index: 888;
+  height: 100%;
+  width: 100%;
+  animation-delay: 1s;
+  animation-duration: 3s;
+}
+
+#loader {
+  border: 16px solid #f3f3f3; /* Light grey */
+  border-top: 16px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 10vw;
+  height: 10vw;
+  animation: spin 2s linear infinite;
+  margin-left: 45vw;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#EnterNameSec {
+  position: fixed;
+  top: 0;
+  background: url("../Div/Welcome/background.jpg") fixed no-repeat;
+  background-size: cover;
+  color: #fff;
+  z-index: 777;
+  height: 100%;
+  width: 100%;
+  animation-delay: 1s;
+  animation-duration: 3s;
+}
+
+.input-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 30px 0;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+  width: 80%;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input.form-control,
+input.form-control:focus {
+  width: 60%;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  height: auto;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border-radius: 25px;
+  font-size: 18px;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+input.form-control:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+input.form-control:focus {
+  border-color: rgba(30, 144, 255, 0.6);
+  box-shadow: 0 0 20px rgba(30, 144, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+input.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+}
+
+#select {
+  position: fixed;
+  top: 0;
+  background: url("../Div/Welcome/bg.PNG") fixed round;
+  background-size: cover;
+  color: #fff;
+  z-index: 666;
+  height: 100%;
+  width: 100%;
+  width: 100%;
+  animation-delay: 0.5s;
+  animation-duration: 2s;
+}
+.transperant-btn {
+  background: transparent;
+  border: 0px;
+  width: 40%;
+  cursor: pointer;
+}
+
+.btn-start {
+  width: 20%;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
+.start-img {
+  width: 100%;
+}
+.btn-start:hover {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+  perspective: 1000px;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+#currentPlayerBadges {
+  height: 100%;
+  width: 100%;
+  padding-top: 6%;
+  display: none;
+  position: absolute;
+  z-index: 9991;
+  top: 0;
+  left: 0;
+  background: url("../Div/Welcome/bg.PNG") fixed round;
+  background-size: cover;
+  padding: 20px;
+}
+
+#backBtn {
+  margin: 10%;
+  background: transparent;
+  border: 0px;
+}
+
+img.finalBadges {
+  height: 200px;
+  margin: 15px;
+}
+#gameOver {
+  background: url("../Div/Welcome/bg.PNG") fixed round;
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  padding-top: 10%;
+}
+#CongDiv {
+  background: url("../Div/Welcome/bg.PNG") fixed round;
+  height: 100%;
+  width: 100%;
+}
+
+#CongDiv button {
+  width: 25%;
+}
+#gameOver button {
+  width: 30%;
+}
+#gameOver,
+#CongDiv {
+  z-index: -150;
+  display: none;
+}
+.gameOver img {
+  width: 60%;
+}
+
+.gameOver button {
+  border: 0px;
+  background-color: transparent;
+}
+
+#timer {
+  position: absolute;
+  width: 15%;
+  height: 40%;
+  display: inline-block;
+  right: 30%;
+  top: 62%;
+}
+
+#timer img {
+  width: 40%;
+  height: 100%;
+  float: left;
+}
+#min {
+  width: 28%;
+  height: 100%;
+  display: inline-block;
+  left: 32%;
+  top: 0%;
+  margin-top: 0%;
+  margin-left: 1%;
+}
+
+#second {
+  float: right;
+  width: 28%;
+  height: 100%;
+  display: inline-block;
+  top: 0%;
+}
+
+#hour {
+  float: left;
+  width: 28%;
+  height: 100%;
+  display: inline-block;
+  top: 0%;
+}
+
+#leftColon {
+  width: 1%;
+  height: 100%;
+  top: 0%;
+  display: inline-block;
+  margin-top: 0%;
+}
+
+#rightColon {
+  width: 1%;
+  height: 100%;
+  display: inline-block;
+  margin-top: 0%;
+}
+
+.score-table-container {
+  max-height: 300px;
+  overflow-y: auto;
+  margin: 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.score-table-container::-webkit-scrollbar {
+  width: 8px;
+}
+
+.score-table-container::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+.score-table-container::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 4px;
+}
+
+.score-table-container::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.table {
+  margin-bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  color: #fff;
+}
+
+.table thead th {
+  position: sticky;
+  top: 0;
+  background: #007bff;
+  color: white;
+  font-weight: 500;
+  border: none;
+}
+
+.table td,
+.table th {
+  padding: 12px 15px;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#loading {
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  font-size: 18px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  margin-bottom: 10px;
+  display: none;
+}
+
+.avatar-wrapper {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.avatar-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media screen and (max-width: 900px) {
+  .avatar-wrapper {
+    width: 40px;
+    height: 40px;
+  }
+
+  .input-container {
+    gap: 10px;
+  }
+}
