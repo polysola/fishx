@@ -6,6 +6,24 @@ Storage.prototype.getObj = function (key) {
   return JSON.parse(this.getItem(key));
 };
 
+const saveGameDataToFirebase = (userData, gameData) => {
+  const cloudDB = firebase.firestore();
+
+  cloudDB
+    .collection("Database")
+    .doc(userData)
+    .set({
+      Score: gameData.scoreing,
+      Level: level,
+      Lives: lives,
+      Stars: seaStarNum,
+      Growth: ((score - (level - 1) * 30) / 30) * 100,
+      LastUpdated: firebase.firestore.FieldValue.serverTimestamp(),
+    })
+    .then(() => console.log("Game data saved for", userData))
+    .catch((err) => console.error("Error saving data:", err));
+};
+
 let updateLocalStorage = function () {
   if (gameCompleteFlag) {
     if (lives > previousState.numberOfLives) {
@@ -18,26 +36,12 @@ let updateLocalStorage = function () {
       previousState.level3time = currentPlayerLevel3Time;
       localStorage.setObj(playerNa.value, previousState);
     }
+    saveGameDataToFirebase(playerNa.value, previousState);
   } else if (lives === 0) {
     if (score > previousState.scoreing) {
       previousState.scoreing = score;
       localStorage.setObj(playerNa.value, previousState);
-      let scoreData = previousState.scoreing;
-      let userData = playerNa.value;
-      let cloudDB = firebase.firestore();
-
-      cloudDB
-        .collection(`Database`)
-        .doc(userData)
-        .set({
-          Score: scoreData,
-        })
-        .then(function () {
-          console.log("Document written with ID", userData);
-        })
-        .catch(function (err) {
-          console.log("Err", err);
-        });
+      saveGameDataToFirebase(playerNa.value, previousState);
     }
   } else {
     switch (level) {
@@ -49,6 +53,7 @@ let updateLocalStorage = function () {
           ) {
             previousState.level1time = currentPlayerLevel1Time;
             localStorage.setObj(playerNa.value, previousState);
+            saveGameDataToFirebase(playerNa.value, previousState);
           }
         }
         break;
@@ -60,6 +65,7 @@ let updateLocalStorage = function () {
           ) {
             previousState.level2time = currentPlayerLevel2Time;
             localStorage.setObj(playerNa.value, previousState);
+            saveGameDataToFirebase(playerNa.value, previousState);
           }
         }
         break;

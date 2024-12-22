@@ -4,10 +4,11 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Feeding Frenzy </title>
+    <title>XRipple Fish </title>
 
     <!--  <link rel="icon" tybe="image/x-icon" href="images/dumy_fish.gif"> -->
-    <link rel="icon" tybe="image/x-icon" href="images/favicon.gif">
+    <link rel="icon" tybe="image/x-icon" href="images/Logo .png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
 
@@ -106,7 +107,7 @@
 <body>
 
     <div id="load" class="text-center animated">
-        <img src="Div/Welcome/logo.png" width="40%">
+        <img src="images/BG 1.png" style="max-width: 500px;" width="40%">
         <div id="loader"> </div>
     </div>
 
@@ -120,7 +121,7 @@
     </video>
 
     <section id="select" class="text-center animated ">
-        <img src="Div/Welcome/logo.png" width="40%">
+        <img src="images/BG 1.png" style="max-width: 500px;" width="40%">
         <br>
         <button class="transperant-btn" onclick="selectUp(),setPlayerNumber(1),startGame()">
             <img src="Div/Select/Char1.png" width="40%">
@@ -134,10 +135,29 @@
 
 
     <section id="EnterNameSec" class="text-center animated  ">
-        <img src="Div/Welcome/logo.png" width="40%">
+        <img src="images/BG 1.png" style="max-width: 500px;" width="40%">
+        <div class="gaming-buttons">
+            <a href="https://t.me/XRippleFish_Portal" target="_blank" class="game-btn telegram-btn">
+                <i class="fab fa-telegram"></i>
+                <span>Telegram</span>
+                <div class="btn-glow"></div>
+            </a>
+
+            <a href="#" class="game-btn buy-btn">
+                <img src="./images/leger.jpg" style="width: 20px; height: 20px;" alt="" srcset="">
+                <span>Buy Now</span>
+                <div class="btn-glow"></div>
+            </a>
+
+            <a href="https://x.com/XRipple_Fish" target="_blank" class="game-btn twitter-btn">
+                <i class="fab fa-twitter"></i>
+                <span>Twitter</span>
+                <div class="btn-glow"></div>
+            </a>
+        </div>
         <div class="input-container">
             <div class="avatar-wrapper">
-                <img src="images/default-avatar.png" id="userAvatar" alt="User Avatar">
+                <img src="images/Logo .png" id="userAvatar" alt="User Avatar">
             </div>
             <input type="text" class="form-control" placeholder="Enter your Name" id="nameEnter">
             <button type="submit" id="btnGame" class="btn-start">
@@ -154,6 +174,10 @@
                                 <tr>
                                     <th>User</th>
                                     <th>Score</th>
+                                    <th>Level</th>
+                                    <th>Lives</th>
+                                    <th>Stars</th>
+                                    <th>Growth</th>
                                 </tr>
                             </thead>
                             <tbody id="userData">
@@ -338,23 +362,30 @@
         function getAllUsersAndScores() {
             document.getElementById('loading').style.display = 'block';
             db.collection("Database")
+                .orderBy("Score", "desc")
+
                 .get()
                 .then((querySnapshot) => {
                     let tableBody = document.getElementById('userData');
-                    tableBody.innerHTML = ''; // Xóa dữ liệu cũ
+                    tableBody.innerHTML = '';
 
                     querySnapshot.forEach((doc) => {
+                        const data = doc.data();
                         let row = tableBody.insertRow();
-                        let cell1 = row.insertCell(0);
-                        let cell2 = row.insertCell(1);
-                        cell1.textContent = doc.id;
-                        cell2.textContent = doc.data().Score;
+
+                        row.insertCell(0).textContent = doc.id;
+                        row.insertCell(1).textContent = data.Score || 0;
+                        row.insertCell(2).textContent = data.Level || 1;
+                        row.insertCell(3).textContent = data.Lives || 0;
+                        row.insertCell(4).textContent = data.Stars || 0;
+                        row.insertCell(5).textContent = `${Math.round(data.Growth || 0)}%`;
                     });
+
                     document.getElementById('loading').style.display = 'none';
                 })
                 .catch((error) => {
-                    console.log("Error getting documents: ", error);
-                    document.getElementById('loading').textContent = 'Err.';
+                    console.error("Error getting documents: ", error);
+                    document.getElementById('loading').textContent = 'Error loading data';
                 });
         }
 
