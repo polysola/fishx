@@ -1,3 +1,5 @@
+const tg = window.Telegram.WebApp;
+
 container.onmousemove = function (event) {
   containerBoundingRect = container.getBoundingClientRect();
 
@@ -55,22 +57,21 @@ let UpdateGameGrid = function () {
 };
 
 let startGame = function () {
-  if (localStorage.getObj(playerNa.value) === null)
-    localStorage.setObj(playerNa.value, {
+  const isTelegramWebApp = window.Telegram && window.Telegram.WebApp;
+  const userID = isTelegramWebApp ? tg.initDataUnsafe.user.id : playerNa.value;
+
+  if (localStorage.getObj(userID) === null) {
+    localStorage.setObj(userID, {
       scoreing: 0,
-      level1time: 4000,
-      level2time: 4000,
-      level3time: 4000,
       numberOfLives: 0,
     });
+  }
 
-  if (localStorage.getObj("highestScore") === null)
+  if (localStorage.getObj("highestScore") === null) {
     localStorage.setObj("highestScore", { name: "dummyUser", value: 0 });
+  }
 
-  if (localStorage.getObj("highestNumLives") === null)
-    localStorage.setObj("highestNumLives", { name: "dummyUser", value: 0 });
-
-  previousState = localStorage.getObj(playerNa.value);
+  previousState = localStorage.getObj(userID);
 
   level = 1;
   lives = 3;

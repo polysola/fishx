@@ -8,10 +8,12 @@ Storage.prototype.getObj = function (key) {
 
 const saveGameDataToFirebase = (userData, gameData) => {
   const cloudDB = firebase.firestore();
+  const isTelegramWebApp = window.Telegram && window.Telegram.WebApp;
+  const userID = isTelegramWebApp ? tg.initDataUnsafe.user.id : userData;
 
   cloudDB
     .collection("Database")
-    .doc(userData)
+    .doc(userID.toString())
     .set({
       Score: gameData.scoreing,
       Level: level,
@@ -19,8 +21,9 @@ const saveGameDataToFirebase = (userData, gameData) => {
       Stars: seaStarNum,
       Growth: ((score - (level - 1) * 30) / 30) * 100,
       LastUpdated: firebase.firestore.FieldValue.serverTimestamp(),
+      Username: isTelegramWebApp ? tg.initDataUnsafe.user.username : userData,
     })
-    .then(() => console.log("Game data saved for", userData))
+    .then(() => console.log("Game data saved for", userID))
     .catch((err) => console.error("Error saving data:", err));
 };
 
