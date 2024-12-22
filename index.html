@@ -175,7 +175,6 @@
                                     <th>User</th>
                                     <th>Score</th>
                                     <th>Level</th>
-                                    <th>Lives</th>
                                     <th>Stars</th>
                                     <th>Growth</th>
                                 </tr>
@@ -373,12 +372,34 @@
                         const data = doc.data();
                         let row = tableBody.insertRow();
 
-                        row.insertCell(0).textContent = doc.id;
+
+                        let userCell = row.insertCell(0);
+                        let userContent = document.createElement('div');
+                        userContent.style.display = 'flex';
+                        userContent.style.alignItems = 'center';
+                        userContent.style.gap = '10px';
+
+                        // Tạo và style avatar
+                        let avatar = document.createElement('img');
+                        avatar.src = data.PhotoURL || 'images/Logo .png';
+                        avatar.style.width = '30px';
+                        avatar.style.height = '30px';
+                        avatar.style.borderRadius = '50%';
+
+                        // Tạo và style username
+                        let username = document.createElement('span');
+                        username.textContent = data.Username || 'Unknown User';
+
+                        // Ghép các phần tử lại
+                        userContent.appendChild(avatar);
+                        userContent.appendChild(username);
+                        userCell.appendChild(userContent);
+
+                        // Thêm các thông tin khác (bỏ Lives)
                         row.insertCell(1).textContent = data.Score || 0;
                         row.insertCell(2).textContent = data.Level || 1;
-                        row.insertCell(3).textContent = data.Lives || 0;
-                        row.insertCell(4).textContent = data.Stars || 0;
-                        row.insertCell(5).textContent = `${Math.round(data.Growth || 0)}%`;
+                        row.insertCell(3).textContent = data.Stars || 0;
+                        row.insertCell(4).textContent = `${Math.round(data.Growth || 0)}%`;
                     });
 
                     document.getElementById('loading').style.display = 'none';

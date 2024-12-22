@@ -31,8 +31,6 @@ const saveGameDataToFirebase = (userData, gameData) => {
   const isTelegramWebApp = window.Telegram && window.Telegram.WebApp;
   const user = isTelegramWebApp ? tg.initDataUnsafe?.user : null;
 
-  enableFullScreen();
-
   if (user) {
     const gameDataToSave = {
       Username: user.username || `User${user.id}`,
@@ -53,13 +51,40 @@ const saveGameDataToFirebase = (userData, gameData) => {
     };
 
     localStorage.setObj(user.id.toString(), gameDataToSave);
-
     cloudDB
       .collection("Database")
       .doc(user.id.toString())
       .set(gameDataToSave, { merge: true })
       .then(() => {
-        console.log("Game data saved successfully for", user.username);
+        console.log("Game data saved for", user.username);
+        previousState = gameDataToSave;
+      })
+      .catch((err) => console.error("Error saving data:", err));
+  } else {
+    const username = playerNa.value;
+    if (!username) return;
+
+    const gameDataToSave = {
+      Username: username,
+      PhotoURL: "images/Logo .png",
+      Score: score,
+      Level: level,
+      Stars: seaStarNum,
+      Growth: ((score - (level - 1) * 30) / 30) * 100,
+      LastUpdated: firebase.firestore.FieldValue.serverTimestamp(),
+      Level1Time: currentPlayerLevel1Time,
+      Level2Time: currentPlayerLevel2Time,
+      Level3Time: currentPlayerLevel3Time,
+      Badges: currentPlayerTempBadge,
+    };
+
+    localStorage.setObj(username, gameDataToSave);
+    cloudDB
+      .collection("Database")
+      .doc(username)
+      .set(gameDataToSave, { merge: true })
+      .then(() => {
+        console.log("Game data saved for web user:", username);
         previousState = gameDataToSave;
       })
       .catch((err) => console.error("Error saving data:", err));
@@ -67,19 +92,33 @@ const saveGameDataToFirebase = (userData, gameData) => {
 };
 
 let updateLocalStorage = function () {
-  const user = window.Telegram?.WebApp?.initDataUnsafe?.user;
-  if (!user) return;
+  const isTelegramWebApp = window.Telegram && window.Telegram.WebApp;
+  const user = isTelegramWebApp ? tg.initDataUnsafe?.user : null;
 
-  const userID = user.id.toString();
-  const currentState = {
-    scoreing: score,
-    numberOfLives: lives,
-    level1time: currentPlayerLevel1Time,
-    level2time: currentPlayerLevel2Time,
-    level3time: currentPlayerLevel3Time,
-  };
+  if (user) {
+    const userID = user.id.toString();
+    const currentState = {
+      scoreing: score,
+      numberOfLives: lives,
+      level1time: currentPlayerLevel1Time,
+      level2time: currentPlayerLevel2Time,
+      level3time: currentPlayerLevel3Time,
+    };
+    previousState = currentState;
+    localStorage.setObj(userID, currentState);
+    saveGameDataToFirebase(userID, currentState);
+  } else {
+    const username = playerNa.value;
+    if (!username) return;
 
-  previousState = currentState;
-  localStorage.setObj(userID, currentState);
-  saveGameDataToFirebase(userID, currentState);
+    const currentState = {
+      scoreing: score,
+      level1time: currentPlayerLevel1Time,
+      level2time: currentPlayerLevel2Time,
+      level3time: currentPlayerLevel3Time,
+    };
+    previousState = currentState;
+    localStorage.setObj(username, currentState);
+    saveGameDataToFirebase(username, currentState);
+  }
 };
