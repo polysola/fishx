@@ -1,5 +1,3 @@
-const tg = window.Telegram.WebApp;
-
 container.onmousemove = function (event) {
   containerBoundingRect = container.getBoundingClientRect();
 
@@ -57,21 +55,22 @@ let UpdateGameGrid = function () {
 };
 
 let startGame = function () {
-  const isTelegramWebApp = window.Telegram && window.Telegram.WebApp;
-  const userID = isTelegramWebApp ? tg.initDataUnsafe.user.id : playerNa.value;
-
-  if (localStorage.getObj(userID) === null) {
-    localStorage.setObj(userID, {
+  if (localStorage.getObj(playerNa.value) === null)
+    localStorage.setObj(playerNa.value, {
       scoreing: 0,
+      level1time: 4000,
+      level2time: 4000,
+      level3time: 4000,
       numberOfLives: 0,
     });
-  }
 
-  if (localStorage.getObj("highestScore") === null) {
+  if (localStorage.getObj("highestScore") === null)
     localStorage.setObj("highestScore", { name: "dummyUser", value: 0 });
-  }
 
-  previousState = localStorage.getObj(userID);
+  if (localStorage.getObj("highestNumLives") === null)
+    localStorage.setObj("highestNumLives", { name: "dummyUser", value: 0 });
+
+  previousState = localStorage.getObj(playerNa.value);
 
   level = 1;
   lives = 3;
@@ -145,36 +144,12 @@ window.onload = function () {
   if (tg) {
     const user = tg.initDataUnsafe?.user;
     if (user) {
-      const userData = {
-        id: user.id,
-        username: user.username || "User" + user.id,
-        photo_url: user.photo_url || defaultAvatar,
-        scoreing: 0,
-        numberOfLives: 0,
-      };
-
-      localStorage.setObj(user.id, userData);
-
-      nameInput.value = userData.username;
+      nameInput.value = user.username || "";
       nameInput.readOnly = true;
-      avatarImg.src = userData.photo_url;
 
-      const cloudDB = firebase.firestore();
-      cloudDB
-        .collection("Database")
-        .doc(user.id.toString())
-        .set({
-          Username: userData.username,
-          PhotoURL: userData.photo_url,
-          Score: 0,
-          Level: 1,
-          Lives: 0,
-          Stars: 0,
-          Growth: 0,
-          LastUpdated: firebase.firestore.FieldValue.serverTimestamp(),
-        })
-        .then(() => console.log("Initial user data saved"))
-        .catch((err) => console.error("Error saving initial data:", err));
+      if (user.photo_url) {
+        avatarImg.src = user.photo_url;
+      }
     }
   } else {
     avatarImg.src = defaultAvatar;
