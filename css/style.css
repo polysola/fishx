@@ -48,6 +48,7 @@ video {
   height: 100%;
   width: 40%;
   float: left;
+  object-fit: contain;
 }
 #scoreNumDiv {
   height: 100%;
@@ -59,6 +60,7 @@ video {
   height: 100%;
   width: 25%;
   float: left;
+  object-fit: contain;
 }
 #growthDiv {
   position: absolute;
@@ -72,6 +74,7 @@ video {
   height: 100%;
   width: 28%;
   float: left;
+  object-fit: contain;
 }
 #growthBarTotal {
   height: 100%;
@@ -119,12 +122,14 @@ video {
   height: 100%;
   width: 60%;
   float: left;
+  object-fit: contain;
 }
 #levelNum {
   height: 100%;
   width: 15%;
   float: right;
   margin-right: 22%;
+  object-fit: contain;
 }
 #liveDiv {
   position: absolute;
@@ -148,6 +153,7 @@ video {
   height: 100%;
   width: 40%;
   float: left;
+  object-fit: contain;
 }
 #menuDiv {
   position: absolute;
@@ -167,6 +173,7 @@ video {
   width: 70%;
   display: inline-block;
   float: right;
+  object-fit: contain;
 }
 
 .menuChar {
@@ -203,9 +210,11 @@ video {
   width: 20%;
   float: right;
   margin-right: 46%;
+  object-fit: contain;
 }
 
 #badgeDiv {
+  display: none !important;
   position: absolute;
   width: 29%;
   height: 100%;
@@ -230,78 +239,4 @@ video {
   margin-left: 1%;
   float: right;
   border: solid 0.5px SandyBrown;
-}
-
-
-@media screen and (max-width: 900px) {
-  #board {
-    height: 60px;
-    padding: 5px 10px;
-  }
-
-  #scoreDiv {
-    width: 80px;
-  }
-
-  #scoreImg {
-    width: 30px;
-    height: auto;
-    object-fit: contain;
-  }
-
-  #growthDiv {
-    width: 180px;
-    left: 90px;
-  }
-
-  #growthImg {
-    width: 30px;
-    height: auto;
-  }
-
-  #levelDiv {
-    width: 80px;
-    left: auto;
-    right: 200px;
-  }
-
-  #levelImg {
-    width: 35px;
-    height: auto;
-  }
-
-  #liveDiv {
-    width: 80px;
-    right: 100px;
-  }
-
-  #charImg {
-    width: 25px;
-    height: auto;
-  }
-
-  #badgeDiv {
-    width: 90px;
-  }
-
-  #badgeImg {
-    width: 30px;
-    object-fit: contain;
-    height: auto;
-  }
-
-  .menuChar {
-    width: 25px;
-    height: auto;
-    margin: 0 3px;
-  }
-
-  #seaStarDiv {
-    width: 60px;
-  }
-
-  #seaStarImg {
-    width: 25px;
-    height: auto;
-  }
 }

@@ -20,7 +20,87 @@
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-firestore.js"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        @media only screen and (max-width: 600px) {
+            #board {
+                height: 60px;
+                padding: 5px 10px;
+            }
 
+            #scoreDiv {
+                width: 80px;
+            }
+
+            #scoreImg {
+                width: 30px;
+                height: auto;
+                object-fit: contain;
+            }
+
+            #growthDiv {
+                width: 180px;
+                left: 90px;
+            }
+
+            #growthImg {
+                width: 30px;
+                height: auto;
+            }
+
+            #levelDiv {
+                width: 80px;
+                left: auto;
+                right: 200px;
+            }
+
+            #levelImg {
+                width: 35px;
+                height: auto;
+            }
+
+            #liveDiv {
+                width: 80px;
+                right: 100px;
+            }
+
+            #charImg {
+                width: 25px;
+                height: auto;
+            }
+
+            #badgeDiv {
+                display: none !important;
+                width: 90px;
+            }
+
+            #badgeImg {
+                display: none !important;
+                width: 30px;
+                object-fit: contain;
+                height: auto;
+            }
+
+            .menuChar {
+                width: 25px;
+                height: auto;
+                margin: 0 3px;
+            }
+
+            #seaStarDiv {
+                width: 60px;
+            }
+
+            #seaStarImg {
+                width: 25px;
+                height: auto;
+            }
+
+            .scoreNum {
+                object-fit: contain !important;
+            }
+
+        }
+    </style>
 </head>
 
 <body>
@@ -55,6 +135,15 @@
 
     <section id="EnterNameSec" class="text-center animated  ">
         <img src="Div/Welcome/logo.png" width="40%">
+        <div class="input-container">
+            <div class="avatar-wrapper">
+                <img src="images/default-avatar.png" id="userAvatar" alt="User Avatar">
+            </div>
+            <input type="text" class="form-control" placeholder="Enter your Name" id="nameEnter">
+            <button type="submit" id="btnGame" class="btn-start">
+                <img class="start-img" src="images/Start/Start.png" alt="Start Game">
+            </button>
+        </div>
         <div class="container">
             <div id="loading" class="loading">Loading...</div>
             <div class="row">
@@ -76,15 +165,7 @@
         </div>
         <br>
 
-        <div class="input-container">
-            <div class="avatar-wrapper">
-                <img src="images/default-avatar.png" id="userAvatar" alt="User Avatar">
-            </div>
-            <input type="text" class="form-control" placeholder="Enter your Name" id="nameEnter">
-            <button type="submit" id="btnGame" class="btn-start">
-                <img class="start-img" src="images/Start/Start.png" alt="Start Game">
-            </button>
-        </div>
+
 
     </section>
     <div id='board' class="text-center">

@@ -76,7 +76,7 @@ input.form-control:focus {
   background: rgba(255, 255, 255, 0.1);
   height: auto;
   border: 2px solid rgba(255, 255, 255, 0.2);
-  color: #fff;
+  color: yellow;
   border-radius: 25px;
   font-size: 18px;
   transition: all 0.3s ease;
@@ -224,6 +224,7 @@ img.finalBadges {
   width: 40%;
   height: 100%;
   float: left;
+  object-fit: contain;
 }
 #min {
   width: 28%;
